@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>BIO-SYNTHESIS HUD</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Newsreader:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#241a00",
+                      "surface-container-highest": "#313633",
+                      "on-secondary": "#3d2e00",
+                      "on-primary-fixed": "#181d17",
+                      "secondary-fixed-dim": "#e6c364",
+                      "primary-fixed": "#dfe4db",
+                      "surface-tint": "#c3c8bf",
+                      "error-container": "#93000a",
+                      "on-tertiary": "#00390f",
+                      "surface-dim": "#0f1512",
+                      "on-tertiary-container": "#008f32",
+                      "on-secondary-fixed-variant": "#584400",
+                      "inverse-surface": "#dfe4df",
+                      "secondary-container": "#785d00",
+                      "on-tertiary-fixed": "#002106",
+                      "on-tertiary-fixed-variant": "#00531a",
+                      "on-background": "#dfe4df",
+                      "outline": "#8f928c",
+                      "on-surface-variant": "#c5c7c1",
+                      "surface-bright": "#353a37",
+                      "surface-container": "#1b211e",
+                      "surface-container-high": "#262b28",
+                      "secondary": "#e6c364",
+                      "outline-variant": "#444843",
+                      "surface-variant": "#313633",
+                      "error": "#ffb4ab",
+                      "on-primary": "#2c322c",
+                      "surface": "#0f1512",
+                      "inverse-primary": "#5a6059",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed-dim": "#c3c8bf",
+                      "inverse-on-surface": "#2c322e",
+                      "on-surface": "#dfe4df",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#434842",
+                      "surface-container-lowest": "#0a0f0d",
+                      "on-primary-container": "#777d75",
+                      "tertiary-fixed": "#6cff80",
+                      "background": "#0f1512",
+                      "primary": "#c3c8bf",
+                      "tertiary-container": "#001202",
+                      "on-secondary-container": "#fdd977",
+                      "surface-container-low": "#171d1a",
+                      "secondary-fixed": "#ffe08f",
+                      "tertiary-fixed-dim": "#00e556",
+                      "primary-container": "#0a0f0a",
+                      "tertiary": "#00e556"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "container-padding": "48px",
+                      "element-gap": "16px"
+              },
+              "fontFamily": {
+                      "data-display": ["Space Grotesk"],
+                      "headline-md": ["Newsreader"],
+                      "headline-xl": ["Newsreader"],
+                      "body-lg": ["Inter"],
+                      "label-caps": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "data-display": ["32px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                      "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "0.12em", "fontWeight": "500" }],
+                      "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "0.15em", "fontWeight": "600" }],
+                      "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                      "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.2em", "fontWeight": "600" }]
+              },
+              "animation": {
+                      "slide-up": "slideUp 0.3s ease-out forwards"
+              },
+              "keyframes": {
+                      "slideUp": {
+                          "0%": { opacity: 0, transform: "translateY(10px)" },
+                          "100%": { opacity: 1, transform: "translateY(0)" }
+                      }
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background-color: rgba(10, 25, 15, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-top: 1px solid rgba(223, 228, 219, 0.2);
+            border-left: 1px solid rgba(223, 228, 219, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            border-right: 1px solid rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8), inset 1px 1px 2px rgba(223, 228, 219, 0.1);
+        }
+        .imperial-button {
+            background: linear-gradient(180deg, rgba(36,26,0,1) 0%, rgba(88,68,0,1) 100%);
+            box-shadow: inset 0 1px 0 rgba(230,195,100,0.2), 0 4px 6px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        .imperial-button:hover:not(:disabled) {
+            box-shadow: inset 0 1px 0 rgba(230,195,100,0.4), 0 0 15px rgba(0,229,86,0.3);
+            cursor: pointer;
+        }
+        .imperial-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            animation: pulse 2s infinite;
+        }
+        .data-flicker {
+            animation: flicker 4s infinite alternate;
+        }
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.8; }
+        }
+        .crimson-alert {
+            animation: breathe 2s infinite ease-in-out;
+            background-color: rgba(147, 0, 10, 0.2);
+            border-color: rgba(255, 180, 171, 0.3);
+        }
+        @keyframes breathe {
+            0%, 100% { box-shadow: inset 0 0 10px rgba(255, 180, 171, 0.2); }
+            50% { box-shadow: inset 0 0 30px rgba(255, 180, 171, 0.5); }
+        }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(11, 28, 20, 0.2);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(230, 195, 100, 0.3);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(230, 195, 100, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden relative selection:bg-tertiary/30 selection:text-tertiary-fixed">
+    
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 z-0 opacity-30 mix-blend-luminosity pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCoynzs-3lC9wCWndLkQxNXJrAaJASI9-fNCzCLsLiFkd8D1NMK1dyPDr2TeZTc-AHDq7RwEtR-2sjrG-KZQZtfmgM4QfynoHNttS6on8New6bliIfZ-5aZWygsz9CTaAIphnQx9QBUWpsVUXcf7k1ZZGYbS8XrhMAxtLzb1nhHfLQGe5RhkYvNuTHLjM68EKE9fRk3g4zKIwdHsK6Acpbm5ftn6UtDD4MS3TJInmBxrZuiVFYoyiqfSkflSvig7BzCe2YrUml7sww'); background-size: cover; background-position: center;"></div>
+    
+    <!-- TopAppBar -->
+    <header class="bg-surface/60 backdrop-blur-2xl shadow-sm backdrop-saturate-150 fixed top-0 w-full z-50 border-b border-secondary/30 shadow-[0_1px_0_0_rgba(232,237,232,0.1)] backdrop-filter transition-all duration-500 ease-in-out">
+        <div class="flex justify-between items-center px-container-padding py-4 w-full">
+            <div class="font-headline-md text-headline-md text-secondary uppercase tracking-widest flex items-center gap-4">
+                <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">biotech</span>
+                BIO-SYNTHESIS HUD
+            </div>
+            <nav class="hidden md:flex gap-element-gap font-label-caps text-label-caps tracking-[0.25em]">
+                <a class="text-secondary border-b border-secondary pb-1 hover:text-tertiary transition-all duration-500" href="#">MONITOR</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 hover:text-tertiary transition-all duration-500" href="#">ARCHIVE</a>
+            </nav>
+            <div class="flex items-center gap-unit text-primary">
+                <!-- Removed settings and account_tree as requested -->
+            </div>
+        </div>
+    </header>
+
+    <!-- SideNavBar -->
+    <nav class="bg-surface-container-lowest/90 backdrop-blur-3xl fixed left-0 top-0 h-full w-64 z-40 border-r border-outline-variant/20 shadow-[40px_0_80px_rgba(0,0,0,0.8)] hidden md:flex flex-col pt-24 pb-8">
+        <div class="bg-secondary text-on-secondary-fixed p-4 font-bold text-center border-b border-on-secondary-fixed-variant shadow-[inner_2px_2px_4px_rgba(0,0,0,0.5)] mb-8">
+            <div class="font-headline-md text-headline-md">BIO-SYNTHESIS HUD</div>
+            <div class="font-label-caps text-label-caps mt-1 opacity-80">V.09-OBSIDIAN</div>
+        </div>
+        <div class="flex-1 flex flex-col font-label-caps text-label-caps">
+            <a class="border-l-4 border-secondary bg-secondary/10 text-secondary pl-6 py-4 flex items-center gap-4 hover:bg-surface-variant/30 transition-all duration-300 shadow-[0_0_20px_rgba(0,229,86,0.2)]" href="#">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">biotech</span>
+                VITALIS
+            </a>
+            <!-- Removed FLUIDICS, PRESSURE, NEURAL, LOGS as requested -->
+        </div>
+        <div class="px-6 mt-auto">
+            <button id="sync-btn" class="imperial-button w-full py-4 text-secondary-fixed font-label-caps text-label-caps tracking-widest uppercase border border-on-secondary-fixed-variant rounded-none flex justify-center items-center gap-2">
+                <span class="material-symbols-outlined text-sm">power_settings_new</span>
+                ENGAGE SYSTEM
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Canvas -->
+    <main class="md:ml-64 pt-32 pb-24 px-container-padding z-10 relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-12 gap-gutter">
+            
+            <!-- Panel 1: Upload & Scan (top, full width) -->
+            <div class="col-span-12 glass-panel p-8 rounded-none border-t-2 border-t-secondary/50 flex flex-col items-center">
+                <input type="file" id="file-input" class="hidden" accept="image/*" />
+                <div id="drop-zone" class="w-full border-2 border-dashed border-secondary/40 bg-surface/30 p-12 text-center cursor-pointer hover:border-secondary transition-all duration-300 hover:bg-secondary/5">
+                    <span class="material-symbols-outlined text-5xl text-secondary mb-4 opacity-70">cloud_upload</span>
+                    <div class="font-headline-md text-secondary tracking-widest uppercase mb-2">DROP SPECIMEN FOR ANALYSIS</div>
+                    <div class="font-body-lg text-on-surface-variant opacity-60">or click to browse local databanks</div>
+                    <div id="file-name-display" class="font-body-lg text-tertiary mt-4 hidden font-bold"></div>
+                </div>
+                <button id="scan-btn" class="imperial-button mt-8 px-16 py-4 text-secondary-fixed font-label-caps text-label-caps tracking-widest uppercase rounded-none hidden">
+                    INITIALIZE SCAN
+                </button>
+            </div>
+
+            <!-- Left Stack: GradCAM + Disease Report -->
+            <div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+                
+                <div class="grid grid-cols-12 gap-gutter">
+                    <!-- Panel 2: GradCAM Viewport (left, large) -->
+                    <div class="col-span-12 md:col-span-8 glass-panel p-6 rounded-none relative border-l-2 border-l-secondary/30 min-h-[350px]">
+                        <div class="font-label-caps text-label-caps text-on-surface-variant mb-4 tracking-widest absolute top-6 left-6 z-20 bg-surface/80 px-2 py-1 border border-secondary/20">NEURAL HEAT MAP — SPECIMEN ANALYSIS</div>
+                        <div class="absolute inset-0 pt-20 pb-6 px-6 overflow-hidden">
+                            <div id="image-placeholder" class="w-full h-full flex items-center justify-center opacity-20 border border-secondary/10 bg-black/40">
+                                <span class="material-symbols-outlined text-6xl text-secondary animate-pulse">biotech</span>
+                            </div>
+                            <img id="gradcam-img" class="w-full h-full object-contain hidden relative z-10" />
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: IoT Sensor Readings (right of GradCAM) -->
+                    <div class="col-span-12 md:col-span-4 flex flex-col gap-4">
+                        <div class="glass-panel p-4 rounded-none border-l-2 border-l-secondary/30 flex-1 flex flex-col justify-center">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant">O2 SATURATION</div>
+                            <div class="font-data-display text-[32px] font-bold text-primary tracking-tight mt-1" id="metric-o2">
+                                --<span class="text-lg text-on-surface-variant ml-1">%</span>
+                            </div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-none border-l-2 border-l-secondary/30 flex-1 flex flex-col justify-center">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant">FLUX DENSITY</div>
+                            <div class="font-data-display text-[32px] font-bold text-primary tracking-tight mt-1" id="metric-flux">
+                                --<span class="text-lg text-on-surface-variant ml-1">μT</span>
+                            </div>
+                        </div>
+                        <div class="glass-panel p-4 rounded-none border-l-2 border-l-secondary/30 flex-1 flex flex-col justify-center">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant">CORE TEMP</div>
+                            <div class="font-data-display text-[32px] font-bold text-primary tracking-tight mt-1" id="metric-temp">
+                                --<span class="text-lg text-on-surface-variant ml-1">°C</span>
+                            </div>
+                        </div>
+                        <div id="metric-resonance-card" class="glass-panel p-4 rounded-none border-l-2 border-l-secondary/30 flex-1 flex flex-col justify-center">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant flex justify-between">
+                                <span>CORE RESONANCE</span>
+                                <div id="resonance-dot" class="w-2 h-2 rounded-none bg-secondary/50 hidden"></div>
+                            </div>
+                            <div class="font-data-display text-[32px] font-bold text-primary tracking-tight mt-1 data-flicker" id="metric-resonance">
+                                --<span class="text-lg text-on-surface-variant ml-1">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 4: Disease Intelligence Report (below GradCAM) -->
+                <div id="intelligence-report" class="glass-panel p-8 rounded-none border-l-2 border-l-secondary/30 hidden animate-slide-up">
+                    <h2 class="font-label-caps text-label-caps text-secondary/70 tracking-[0.3em] mb-2">CLASSIFICATION: <span id="report-class" class="text-tertiary">--</span></h2>
+                    <h1 class="font-headline-xl text-headline-xl text-secondary mb-6 data-flicker" id="report-name">SPECIMEN IDENTIFIED</h1>
+                    
+                    <p class="font-body-lg text-on-surface-variant mb-10 leading-relaxed" id="report-desc"></p>
+                    
+                    <div class="font-label-caps text-label-caps text-secondary/70 tracking-widest mb-4 border-b border-secondary/20 pb-2">OPTIMAL CONDITIONS REQUIRED</div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10" id="report-remedies">
+                        <!-- JS populated grid -->
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">AI CONFIDENCE</span>
+                            <span class="font-data-display text-2xl text-tertiary" id="conf-ai-text">0%</span>
+                        </div>
+                        <div class="w-full h-3 bg-surface-container-highest relative overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]">
+                            <div id="conf-ai-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary-fixed-dim to-tertiary w-0 shadow-[0_0_10px_rgba(0,229,86,0.5)] border-r border-white/50 transition-all duration-1000"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">BAYESIAN ADJUSTED SCORE</span>
+                            <span class="font-data-display text-2xl text-tertiary" id="conf-bayes-text">0%</span>
+                        </div>
+                        <div class="w-full h-3 bg-surface-container-highest relative overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]">
+                            <div id="conf-bayes-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-secondary-fixed-dim to-tertiary w-0 shadow-[0_0_10px_rgba(0,229,86,0.5)] border-r border-white/50 transition-all duration-1000"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Panel 5: Log Stream (Right Column) -->
+            <div class="col-span-12 lg:col-span-4 glass-panel p-6 rounded-none flex flex-col h-auto min-h-[600px] border-r-2 border-r-secondary/30">
+                <div class="font-label-caps text-label-caps text-secondary mb-6 flex items-center gap-2 border-b border-secondary/20 pb-2">
+                    <span class="material-symbols-outlined text-sm">terminal</span>
+                    LOG STREAM
+                </div>
+                <div class="flex-1 flex flex-col gap-4 font-body-lg text-body-lg text-on-surface-variant overflow-y-auto relative custom-scrollbar pr-2 pb-8" id="log-container">
+                    <!-- JS Populated Logs -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest fixed bottom-0 w-full z-30 border-t border-secondary/20 transition-opacity duration-500 flex justify-between items-center px-container-padding py-2">
+        <div class="font-label-caps text-label-caps text-secondary/70">
+            © 2482 IMPERIAL RESEARCH DIVISION | PROTOCOL-8 SECURED
+        </div>
+        <nav class="hidden sm:flex gap-element-gap font-label-caps text-label-caps tracking-widest text-secondary-fixed-dim">
+            <a class="text-on-surface-variant/40 hover:text-secondary transition-colors" href="#">SYSTEM DIAGNOSTICS</a>
+            <a class="text-on-surface-variant/40 hover:text-secondary transition-colors" href="#">VOID-SPEC</a>
+            <a class="text-on-surface-variant/40 hover:text-secondary transition-colors" href="#">DENSITY-X</a>
+        </nav>
+    </footer>
+
+    <!-- INLINE JAVASCRIPT LOGIC -->
+    <script>
+        const API_URL = 'http://localhost:8000';
+        const MAX_LOGS = 20;
+
+        // Elements
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileNameDisplay = document.getElementById('file-name-display');
+        const scanBtn = document.getElementById('scan-btn');
+        const syncBtn = document.getElementById('sync-btn');
+        const logContainer = document.getElementById('log-container');
+        
+        const gradcamImg = document.getElementById('gradcam-img');
+        const imagePlaceholder = document.getElementById('image-placeholder');
+        
+        const intelligenceReport = document.getElementById('intelligence-report');
+        const reportClass = document.getElementById('report-class');
+        const reportName = document.getElementById('report-name');
+        const reportDesc = document.getElementById('report-desc');
+        const reportRemedies = document.getElementById('report-remedies');
+        
+        const confAiText = document.getElementById('conf-ai-text');
+        const confAiBar = document.getElementById('conf-ai-bar');
+        const confBayesText = document.getElementById('conf-bayes-text');
+        const confBayesBar = document.getElementById('conf-bayes-bar');
+
+        const metricO2 = document.getElementById('metric-o2');
+        const metricFlux = document.getElementById('metric-flux');
+        const metricTemp = document.getElementById('metric-temp');
+        const metricResonance = document.getElementById('metric-resonance');
+        const metricResonanceCard = document.getElementById('metric-resonance-card');
+        const resonanceDot = document.getElementById('resonance-dot');
+
+        let selectedFile = null;
+
+        // Logging System
+        function addLog(tag, message, isError = false, isWarn = false) {
+            const now = new Date();
+            const time = `T-${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'flex gap-4 font-mono text-sm opacity-90 animate-slide-up';
+            
+            let tagColor = 'text-secondary';
+            let msgColor = 'text-on-surface';
+            
+            if (isError) {
+                tagColor = 'text-error font-bold';
+                msgColor = 'text-error';
+                logEntry.className += ' bg-error-container/10 p-2 border-l border-error';
+            } else if (isWarn) {
+                tagColor = 'text-secondary font-bold';
+                msgColor = 'text-secondary';
+            }
+
+            logEntry.innerHTML = `
+                <span class="${tagColor} shrink-0">[${tag}]</span> 
+                <span class="${msgColor}">${message}</span> 
+                <span class="ml-auto text-primary opacity-40 text-xs shrink-0 pl-2">[${time}]</span>
+            `;
+
+            logContainer.appendChild(logEntry);
+            
+            // Keep max entries
+            while (logContainer.children.length > MAX_LOGS) {
+                logContainer.removeChild(logContainer.firstChild);
+            }
+            
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // Initialize App
+        addLog('BOOT', 'Bio-Synthesis HUD initialized. Awaiting specimen.');
+
+        // Drag and Drop Logic
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-secondary', 'bg-secondary/10');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-secondary', 'bg-secondary/10');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-secondary', 'bg-secondary/10');
+            if (e.dataTransfer.files.length) {
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            if (!file.type.startsWith('image/')) {
+                addLog('ERR', 'Invalid specimen format. Image required.', true);
+                return;
+            }
+            selectedFile = file;
+            const sizeKB = (file.size / 1024).toFixed(1);
+            fileNameDisplay.textContent = `SELECTED: ${file.name}`;
+            fileNameDisplay.classList.remove('hidden');
+            scanBtn.classList.remove('hidden');
+            
+            // Preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                gradcamImg.src = e.target.result;
+                gradcamImg.classList.remove('hidden');
+                imagePlaceholder.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+            
+            addLog('INPUT', `Specimen loaded: ${file.name} (${sizeKB}KB)`);
+            
+            // Reset previous report
+            intelligenceReport.classList.add('hidden');
+            metricO2.innerHTML = `--<span class="text-lg text-on-surface-variant ml-1">%</span>`;
+            metricFlux.innerHTML = `--<span class="text-lg text-on-surface-variant ml-1">μT</span>`;
+            metricTemp.innerHTML = `--<span class="text-lg text-on-surface-variant ml-1">°C</span>`;
+            metricResonance.innerHTML = `--<span class="text-lg text-on-surface-variant ml-1">%</span>`;
+            metricResonanceCard.classList.remove('crimson-alert');
+            metricResonance.classList.remove('text-error');
+            resonanceDot.classList.add('hidden');
+            resonanceDot.classList.remove('bg-error', 'shadow-[0_0_10px_rgba(255,180,171,0.8)]', 'animate-pulse');
+        }
+
+        // Scan Engine
+        scanBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+            
+            scanBtn.textContent = 'ANALYZING...';
+            scanBtn.disabled = true;
+            addLog('SCAN', 'Neural analysis initiated. Transmitting to engine...');
+            
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+            
+            try {
+                const response = await fetch(`${API_URL}/analyze`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                handleScanResult(data);
+                
+            } catch (error) {
+                addLog('ERR', `Transmission failure: ${error.message}`, true);
+            } finally {
+                scanBtn.textContent = 'INITIALIZE SCAN';
+                scanBtn.disabled = false;
+            }
+        });
+
+        function handleScanResult(data) {
+            const diseaseName = data.disease_info?.disease_name || 'UNKNOWN';
+            const className = data.top_prediction?.class_name || 'UNKNOWN';
+            const conf = data.top_prediction?.confidence || 0;
+            const weightedConf = data.weighted_confidence || 0;
+            const confPct = (conf * 100).toFixed(1);
+            const weightedConfPct = (weightedConf * 100).toFixed(1);
+            
+            addLog('RESULT', `Specimen identified: ${diseaseName}. Confidence: ${confPct}%`);
+            addLog('BAYES', `Adjusted confidence score: ${weightedConfPct}%`);
+            
+            if (weightedConf < 0.5) {
+                addLog('WARN', 'Core resonance degraded. Environmental mismatch detected.', false, true);
+            }
+            
+            // Render GradCAM
+            if (data.gradcam_image) {
+                // Determine if backend sends full data URI or just base64
+                gradcamImg.src = data.gradcam_image.startsWith('data:') ? data.gradcam_image : `data:image/jpeg;base64,${data.gradcam_image}`;
+            }
+
+            // Render Metrics
+            if (data.sensor_readings) {
+                metricO2.innerHTML = `${data.sensor_readings.humidity.toFixed(1)}<span class="text-lg text-on-surface-variant ml-1">%</span>`;
+                metricFlux.innerHTML = `${data.sensor_readings.soil_moisture.toFixed(1)}<span class="text-lg text-on-surface-variant ml-1">μT</span>`;
+                metricTemp.innerHTML = `${data.sensor_readings.temperature.toFixed(1)}<span class="text-lg text-on-surface-variant ml-1">°C</span>`;
+            }
+
+            // Core Resonance formatting
+            resonanceDot.classList.remove('hidden');
+            if (weightedConf < 0.5) {
+                metricResonance.innerHTML = `ERR: LOW <span class="text-on-surface-variant text-sm ml-4 font-normal">ACTION REQ</span>`;
+                metricResonanceCard.classList.add('crimson-alert');
+                metricResonance.classList.remove('text-primary');
+                metricResonance.classList.add('text-error');
+                resonanceDot.classList.add('bg-error', 'shadow-[0_0_10px_rgba(255,180,171,0.8)]', 'animate-pulse');
+            } else {
+                metricResonance.innerHTML = `${weightedConfPct}<span class="text-lg text-on-surface-variant ml-1">%</span>`;
+                metricResonanceCard.classList.remove('crimson-alert');
+                metricResonance.classList.add('text-primary');
+                metricResonance.classList.remove('text-error');
+                resonanceDot.classList.remove('bg-error', 'shadow-[0_0_10px_rgba(255,180,171,0.8)]', 'animate-pulse');
+                resonanceDot.classList.add('bg-tertiary', 'shadow-[0_0_10px_rgba(0,229,86,0.8)]');
+            }
+
+            // Intelligence Report
+            reportClass.textContent = className.replace(/_/g, ' ').toUpperCase();
+            reportName.textContent = diseaseName.toUpperCase();
+            reportDesc.textContent = data.disease_info?.description || 'No diagnostic data available for this specimen.';
+            
+            // Build Optimal Conditions Grid
+            reportRemedies.innerHTML = '';
+            if (data.disease_info?.optimal_conditions) {
+                for (const [key, val] of Object.entries(data.disease_info.optimal_conditions)) {
+                    const card = document.createElement('div');
+                    card.className = 'glass-panel p-4 rounded-none border-l-2 border-l-secondary/50';
+                    card.innerHTML = `
+                        <div class="font-label-caps text-label-caps text-on-surface-variant mb-2">${key.toUpperCase().replace(/_/g, ' ')}</div>
+                        <div class="font-data-display text-2xl text-secondary">${val}</div>
+                    `;
+                    reportRemedies.appendChild(card);
+                }
+            }
+
+            // Confidence Bars
+            confAiText.textContent = `${confPct}%`;
+            confAiBar.style.width = `${confPct}%`;
+            
+            confBayesText.textContent = `${weightedConfPct}%`;
+            confBayesBar.style.width = `${weightedConfPct}%`;
+            
+            if (weightedConf < 0.5) {
+                confBayesBar.className = 'absolute top-0 left-0 h-full w-0 transition-all duration-1000 bg-error shadow-[0_0_10px_rgba(255,180,171,0.8)] border-r border-error/50';
+                confBayesText.classList.remove('text-tertiary');
+                confBayesText.classList.add('text-error');
+            } else {
+                confBayesBar.className = 'absolute top-0 left-0 h-full w-0 transition-all duration-1000 bg-gradient-to-r from-secondary-fixed-dim to-tertiary shadow-[0_0_10px_rgba(0,229,86,0.5)] border-r border-white/50';
+                confBayesText.classList.add('text-tertiary');
+                confBayesText.classList.remove('text-error');
+            }
+            
+            intelligenceReport.classList.remove('hidden');
+        }
+
+        // Sync System
+        syncBtn.addEventListener('click', async () => {
+            addLog('SYNC', 'Engine health check...');
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                if (response.ok) {
+                    const data = await response.json();
+                    addLog('SYNC', `Health check successful. Inference: ${data.inference_engine}`);
+                } else {
+                    addLog('ERR', `Node unresponsive (${response.status})`, true);
+                }
+            } catch (error) {
+                addLog('ERR', `Transmission failure: ${error.message}`, true);
+            }
+        });
+
+    </script>
+</body>
+</html>

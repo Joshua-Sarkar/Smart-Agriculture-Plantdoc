@@ -1,0 +1,74 @@
+/* CNN Visualization Styles */
+
+.cnn-visualization {
+  margin-bottom: 2rem;
+}
+
+.cnn-visualization h3 {
+  color: var(--primary-green-light);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.layers-container {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  align-items: stretch;
+}
+
+.layer-block {
+  min-width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.8rem;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.layer-block.active {
+  opacity: 1;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--primary-green);
+}
+
+.layer-block.current {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+  transform: scale(1.05);
+}
+
+.layer-input { border-left: 3px solid #3b82f6; }
+.layer-conv1 { border-left: 3px solid #8b5cf6; }
+.layer-conv2 { border-left: 3px solid #ec4899; }
+.layer-conv3 { border-left: 3px solid #f59e0b; }
+.layer-gap { border-left: 3px solid #10b981; }
+.layer-dense { border-left: 3px solid #06b6d4; }
+.layer-output { border-left: 3px solid #10b981; }
+
+.layer-icon {
+  font-size: 1.4rem;
+}
+
+.layer-name {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.pipeline-status {
+  color: var(--primary-green);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 1rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}

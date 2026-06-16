@@ -1,0 +1,91 @@
+/* IoT Gauges Styles */
+
+.iot-gauges-section {
+  margin-bottom: 2rem;
+}
+
+.iot-gauges-section h3 {
+  color: var(--primary-green-light);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.gauges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .gauges-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.gauge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.gauge-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.circular-gauge {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gauge-background {
+  fill: none;
+  stroke: rgba(16, 185, 129, 0.1);
+  stroke-width: 3;
+}
+
+.gauge-progress {
+  fill: none;
+  stroke: var(--primary-green);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.gauge-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.value-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-green-light);
+  font-family: 'Courier New', monospace;
+}
+
+.value-unit {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
